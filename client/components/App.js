@@ -34,9 +34,14 @@ const App = () => {
         if (response.data.logged_in) {
           handleLogin(response.data)
         } else {
-          handleLogout()
+          if (isLoggedIn){
+            handleLogout();
+          } else {
+            setIsLoggedIn(false);
+            setUser({});
+          }
         }
-      })
+      });
   };
 
   useEffect(() => {
