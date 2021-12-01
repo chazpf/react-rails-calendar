@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # resources :events
+  resources :events
   get 'hello_world', to: 'hello_world#index'
 
   namespace :api do
