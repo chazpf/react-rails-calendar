@@ -29,7 +29,7 @@ const App = () => {
   };
 
   const getLoginStatus = () => {
-    axios.get('/logged_in', {withCredentials: true}, {headers: {'Content-Type': 'application/json'}})
+    axios.get('/logged_in', {withCredentials: true, headers: {'Content-Type': 'application/json'}})
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response.data)
