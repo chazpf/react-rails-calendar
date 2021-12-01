@@ -29,7 +29,7 @@ const App = () => {
   };
 
   const getLoginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', {withCredentials: true, headers: {'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", "Accept": "application/json"}})
+    axios.get('/logged_in', {withCredentials: true})
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response.data)
