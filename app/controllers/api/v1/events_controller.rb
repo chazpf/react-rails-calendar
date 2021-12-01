@@ -1,4 +1,5 @@
 class Api::V1::EventsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_event, only: %i[ show edit update destroy ]
 
   # GET /events or /events.json
@@ -44,6 +45,11 @@ class Api::V1::EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
+    if @event.update(event_params)
+      render json: @event
+    else
+      render json: @event.errors
+    end
     # respond_to do |format|
     #   if @event.update(event_params)
     #     format.html { redirect_to @event, notice: "Event was successfully updated." }

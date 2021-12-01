@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'events/index'
+      get 'events/:id', to: 'events#show'
       post 'events/create'
+      put 'events/:id', to: 'events#update'
+      patch 'events/:id', to: 'events#update'
       delete 'events/:id', to: 'events#destroy'
     end
   end
