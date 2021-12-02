@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 import ReactOnRails from 'react-on-rails';
+import CSRFToken from '../cookies';
 
 const Signup = ({handleLogin}) => {
   const navigate = useNavigate();
@@ -24,8 +25,7 @@ const Signup = ({handleLogin}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const csrfToken = ReactOnRails.authenticityToken();
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = CSRFToken(document.cookie);
 
     const user = {
       username,
