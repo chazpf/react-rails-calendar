@@ -24,6 +24,7 @@ const App = () => {
         if (response.data.logged_out) {
           setIsLoggedIn(false);
           setUser({});
+          location.reload();
         } else {
           setErrors(response.data.errors)
         }
