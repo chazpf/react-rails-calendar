@@ -23,7 +23,7 @@ module ReactRailsCalendar
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.action_controller.default_protect_from_forgery = false
+    config.action_controller.default_protect_from_forgery = true
     config.serve_static_files = true
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
