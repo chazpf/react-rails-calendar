@@ -36,7 +36,7 @@ const Signup = ({handleLogin}) => {
           setErrors(response.data.errors)
         }
       })
-      .catch(error => console.log('api errors: ', error.response.status));
+      .catch(error => console.log('api errors: ', error.response.status, error.response));
   };
 
   return (
