@@ -24,7 +24,7 @@ const Signup = ({handleLogin}) => {
     event.preventDefault();
 
     const token = document.querySelector('[name=csrf-token]').content;
-    header = ReactOnRails.authenticityHeaders(otherHeader);
+    const header = { "X-CSRF-Token": csrfToken, "X-Requested-With": "XMLHttpRequest" };
 
     const user = {
       username,
