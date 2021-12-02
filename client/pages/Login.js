@@ -22,7 +22,7 @@ const Login = ({handleLogin}) => {
     event.preventDefault();
 
     const csrfToken = ReactOnRails.authenticityToken();
-    header = ReactOnRails.authenticityHeaders(otherHeader);
+    const header = { "X-CSRF-Token": csrfToken, "X-Requested-With": "XMLHttpRequest" };
 
     const user = {
       username,
