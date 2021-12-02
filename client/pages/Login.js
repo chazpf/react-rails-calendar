@@ -32,7 +32,7 @@ const Login = ({handleLogin}) => {
           setErrors(response.data.errors)
         }
       })
-      .catch(error => console.log('api errors: ', error));
+      .catch(error => console.log('api errors: ', error.response.status));
   };
 
   return (
