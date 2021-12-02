@@ -22,11 +22,16 @@ const Signup = ({handleLogin}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const token = document.querySelector('[name=csrf-token]').content;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
+
     const user = {
       username,
       password,
       password_confirmation: passwordConfirm
     };
+
     axios.post('/users', {user}, {withCredentials: true})
       .then(response => {
         if (response.data.status === 'created') {
