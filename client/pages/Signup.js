@@ -24,7 +24,7 @@ const Signup = ({handleLogin}) => {
     event.preventDefault();
 
     const token = document.querySelector('[name=csrf-token]').content;
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
+    header = ReactOnRails.authenticityHeaders(otherHeader);
 
     const user = {
       username,
@@ -32,7 +32,7 @@ const Signup = ({handleLogin}) => {
       password_confirmation: passwordConfirm
     };
 
-    axios.post('/users', {user}, {withCredentials: true})
+    axios.post('/users', {user}, {withCredentials: true, header})
       .then(response => {
         if (response.data.status === 'created') {
           handleLogin(response.data)

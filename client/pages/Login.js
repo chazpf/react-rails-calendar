@@ -22,14 +22,14 @@ const Login = ({handleLogin}) => {
     event.preventDefault();
 
     const csrfToken = ReactOnRails.authenticityToken();
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+    header = ReactOnRails.authenticityHeaders(otherHeader);
 
     const user = {
       username,
       password,
     };
 
-    axios.post('/login', {user}, {withCredentials:true})
+    axios.post('/login', {user}, {withCredentials:true, header})
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response.data);
