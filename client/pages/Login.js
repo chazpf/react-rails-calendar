@@ -21,15 +21,15 @@ const Login = ({handleLogin}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const csrfToken = ReactOnRails.authenticityToken();
-    const header = { "X-CSRF-Token": csrfToken, "X-Requested-With": "XMLHttpRequest" };
+    const token = document.querySelector('[name=csrf-token]').content;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
 
     const user = {
       username,
       password,
     };
 
-    axios.post('/login', {user}, {withCredentials:true}, {header})
+    axios.post('/login', {user}, {withCredentials:true})
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response.data);
