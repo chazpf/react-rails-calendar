@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 
 const App = () => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [errors, setErrors] = useState('');
@@ -24,6 +25,7 @@ const App = () => {
         if (response.data.logged_out) {
           setIsLoggedIn(false);
           setUser({});
+          navigate('/');
         } else {
           setErrors(response.data.errors)
         }
