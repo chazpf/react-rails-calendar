@@ -29,7 +29,7 @@ const Login = ({handleLogin}) => {
       password,
     };
 
-    axios.post('/login', {user}, {withCredentials:true, header})
+    axios.post('/login', {user}, {withCredentials:true}, {header})
       .then(response => {
         if (response.data.logged_in) {
           handleLogin(response.data);

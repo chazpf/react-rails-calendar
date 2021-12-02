@@ -32,7 +32,7 @@ const Signup = ({handleLogin}) => {
       password_confirmation: passwordConfirm
     };
 
-    axios.post('/users', {user}, {withCredentials: true, header})
+    axios.post('/users', {user}, {withCredentials: true}, {header})
       .then(response => {
         if (response.data.status === 'created') {
           handleLogin(response.data)
