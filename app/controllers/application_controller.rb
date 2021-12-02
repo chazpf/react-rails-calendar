@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ActionController::Cookies
+  after_action :set_csrf_cookie
 
   helper_method :login!, :logged_in?, :current_user, :authorized_user?, :logout!, :set_user
 
@@ -24,6 +26,15 @@ class ApplicationController < ActionController::Base
 
   def set_user
     @user = User.find_by(id: session[:user_id])
+  end
+
+  def set_csrf_cookie
+    cookies["CSRF-TOKEN"] = {
+      value: form_authenticity_token,
+      secure: true,
+      same_site: :strict
+      domain: 'react-rails-calendar.herokuapp.com'
+    }
   end
 
 end
