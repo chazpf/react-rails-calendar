@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 
-const Signup = ({handleLogin}) => {
-  const navigate = useNavigate();
+const Signup = ({ handleSetLogin, setErrors }) => {
+  // const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [errors, setErrors] = useState('');
+  // const [errors, setErrors] = useState('');
 
   const handleChange = (event) => {
     const {name, value} = event.target;
@@ -35,29 +35,23 @@ const Signup = ({handleLogin}) => {
     axios.post('/users', {user}, {withCredentials: true})
       .then(response => {
         if (response.data.status === 'created') {
-          handleLogin(response.data)
-          navigate('/')
+          handleSetLogin(response.data)
+          // navigate('/')
         } else {
           setErrors(response.data.errors)
         }
       })
-      .catch(error => console.log('api errors: ', error.response.status, error.response));
+      .catch(error => console.log('api errors: ', error));
   };
 
   return (
     <div>
       <h1>Sign Up</h1>
-      {errors &&
-        <div>{errors}</div>
-      }
       <form onSubmit={handleSubmit}>
         <input placeholder="username" type="text" name="username" value={username} onChange={handleChange} />
         <input placeholder="password" type="password" name="password" value={password} onChange={handleChange} />
         <input placeholder="confirm password" type="password" name="passwordConfirm" value={passwordConfirm} onChange={handleChange} />
         <button type="submit">Sign Up</button>
-        <div>
-          or <Link to='/login'>log in</Link>
-        </div>
       </form>
     </div>
   );
