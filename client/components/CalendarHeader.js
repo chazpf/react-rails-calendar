@@ -3,17 +3,17 @@ import UserAuth from './UserAuth';
 import dayjs from 'dayjs';
 import GlobalContext from '../contexts/GlobalContext'
 
-const CalendarHeader = ({ isLoggedIn, user, handleSetLogin, handleSetLogout }) => {
-  const { monthIndex, setMonthIndex } = useContext(GlobalContext);
+const CalendarHeader = () => {
+  const { isLoggedIn, user, monthIndex, setMonthIndex } = useContext(GlobalContext);
 
-  // function handleReset() {
-  //   setMonthIndex(
-  //     monthIndex === dayjs().month()
-  //       ? monthIndex + Math.random()
-  //       : dayjs().month()
-  //   );
-  // }
-  //
+  const handleReset = () => {
+    setMonthIndex(
+      monthIndex === dayjs().month()
+        ? monthIndex + Math.random()
+        : dayjs().month()
+    );
+  };
+
   const handlePrevMonth = () => {
     setMonthIndex(monthIndex - 1);
   }
@@ -24,14 +24,10 @@ const CalendarHeader = ({ isLoggedIn, user, handleSetLogin, handleSetLogout }) =
 
   return (
     <header className="px-4 py-2 flex items-center">
-      <UserAuth
-        isLoggedIn={isLoggedIn}
-        user={user}
-        handleSetLogin={handleSetLogin}
-        handleSetLogout={handleSetLogout}
-      />
+      <UserAuth />
       <h1 className="mr-10 text-xl text-gray-500 font-bold">Calendar</h1>
       <button
+        onClick={handleReset}
         className="border rounded py-2 px-4 mr-5 cursor-pointer"
       >
         Today
@@ -46,6 +42,9 @@ const CalendarHeader = ({ isLoggedIn, user, handleSetLogin, handleSetLogout }) =
           chevron_right
         </span>
       </button>
+      <h2 className="ml-4 text-xl text-gray-500 font-bold">
+        {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
+      </h2>
     </header>
   );
 };
