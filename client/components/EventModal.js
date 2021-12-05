@@ -16,8 +16,8 @@ const EventModal = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const calendarEvent = {
-      title,
-      description,
+      title: title || 'New Event',
+      description: description || 'No Description',
       label: selectedLabel,
       day: daySelected.valueOf(),
       user_id: user.id
