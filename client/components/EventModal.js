@@ -43,7 +43,19 @@ const EventModal = () => {
           }
         });
     }
+  };
 
+  const handleDeleteEvent = e => {
+    e.preventDefault();
+    axios.delete(`/api/v1/events/${selectedEvent.id}`)
+      .then(response => {
+        if (response.data.notice) {
+          dispatchCalEvent({type:'delete', payload: selectedEvent});
+          setShowEventModal(false);
+        } else {
+          setErrors(response.data.errors);
+        }
+      });
   };
 
   return (
@@ -53,11 +65,20 @@ const EventModal = () => {
           <span className="material-icons-outlined text-gray-400">
             drag_handle
           </span>
-          <button onClick={() => setShowEventModal(false)}>
-            <span className="material-icons-outlined text-gray-400">
-              close
-            </span>
-          </button>
+          <div>
+            {selectedEvent &&
+              <button onClick={handleDeleteEvent}>
+                <span className="material-icons-outlined text-gray-400">
+                  delete
+                </span>
+              </button>
+            }
+            <button onClick={() => setShowEventModal(false)}>
+              <span className="material-icons-outlined text-gray-400">
+                close
+              </span>
+            </button>
+          </div>
         </header>
         {errors && <p>{errors}</p>}
         <div className="p-3">

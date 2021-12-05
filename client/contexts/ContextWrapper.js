@@ -15,8 +15,8 @@ const savedEventsReducer = (state, {type, payload}) => {
     case 'update':
       fixedPayload = {...payload, day: parseInt(payload.day)}
       return state.map(evt => evt.id === fixedPayload.id ? fixedPayload : evt);
-    // case 'delete':
-    //   return state.filter(evt => evt.id !== payload.id);
+    case 'delete':
+      return state.filter(evt => evt.id !== payload.id);
     default:
       throw new Error();
   }
