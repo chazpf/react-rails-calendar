@@ -19,8 +19,8 @@ const UserAuth = () => {
     setUser(data.user);
     axios.get('/api/v1/events/index', {withCredentials: true})
       .then(response => {
-        const filteredEvents = response.data.filter(event => event.user_id === data.user.id)
-        dispatchCalEvent({type:'get', payload: filteredEvents});
+        const userEvents = response.data.filter(event => event.user_id === data.user.id)
+        dispatchCalEvent({type:'get', payload: userEvents});
       })
   };
 

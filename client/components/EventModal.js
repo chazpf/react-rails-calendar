@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
 import GlobalContext from '../contexts/GlobalContext';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 const labelsClasses = ['indigo', 'gray', 'green', 'blue', 'red', 'purple'];
 
 const EventModal = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [errors, setErrors] = useState('');
-  const [selectedLabel, setSelectedLabel] = useState(labelsClasses[0]);
+  const { user, setShowEventModal, daySelected, dispatchCalEvent, selectedEvent } = useContext(GlobalContext);
 
-  const { user, setShowEventModal, daySelected, dispatchCalEvent } = useContext(GlobalContext);
+  const [title, setTitle] = useState(selectedEvent ? selectedEvent.title : '');
+  const [description, setDescription] = useState(selectedEvent ? selectedEvent.description : '');
+  const [selectedLabel, setSelectedLabel] = useState(selectedEvent ? selectedEvent.label : labelsClasses[0]);
+  const [errors, setErrors] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -21,16 +22,28 @@ const EventModal = () => {
       day: daySelected.valueOf(),
       user_id: user.id
     }
-    axios.post('/api/v1/events/create', calendarEvent)
-      .then(response => {
-        console.log(response);
-        if (response.data.id) {
-          dispatchCalEvent({type: 'push', payload: response.data});
-          setShowEventModal(false);
-        } else {
-          setErrors(response.data.errors)
-        }
-      });
+    if (selectedEvent) {
+      axios.put(`/api/v1/events/${selectedEvent.id}`, calendarEvent)
+        .then(response => {
+          if (response.data.id) {
+            dispatchCalEvent({type: 'update', payload: response.data});
+            setShowEventModal(false);
+          } else {
+            setErrors(response.data.errors);
+          }
+        })
+    } else {
+      axios.post('/api/v1/events/create', calendarEvent)
+        .then(response => {
+          if (response.data.id) {
+            dispatchCalEvent({type: 'push', payload: response.data});
+            setShowEventModal(false);
+          } else {
+            setErrors(response.data.errors);
+          }
+        });
+    }
+
   };
 
   return (

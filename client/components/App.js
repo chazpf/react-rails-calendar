@@ -8,7 +8,7 @@ import EventModal from './EventModal';
 
 const App = () => {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, showEventModal, isLoggedIn, setIsLoggedIn, user, setUser } = useContext(GlobalContext);
+  const { savedEvents, monthIndex, showEventModal, isLoggedIn, setIsLoggedIn, user, setUser } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));

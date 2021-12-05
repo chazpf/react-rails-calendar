@@ -5,11 +5,16 @@ import dayjs from 'dayjs';
 const savedEventsReducer = (state, {type, payload}) => {
   switch (type) {
     case 'get':
-      return payload
+      let fixedPayload = payload.map(event => {
+        return {...event, day: parseInt(event.day)}
+      })
+      return fixedPayload;
     case 'push':
-      return [...state, payload];
-    // case 'update':
-    //   return state.map(evt => evt.id === payload.id ? payload : evt);
+      fixedPayload = {...payload, day: parseInt(payload.day)}
+      return [...state, fixedPayload];
+    case 'update':
+      fixedPayload = {...payload, day: parseInt(payload.day)}
+      return state.map(evt => evt.id === fixedPayload.id ? fixedPayload : evt);
     // case 'delete':
     //   return state.filter(evt => evt.id !== payload.id);
     default:
@@ -22,14 +27,15 @@ const initEvents = () => {
 };
 
 export default function ContextWrapper(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [smallCalenderMonth, setSmallCalenderMonth] = useState(null);
   const [daySelected, setDaySelected] = useState(dayjs());
   const [showEventModal, setShowEventModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents)
+  const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents);
 
   useEffect(() => {
     if (smallCalenderMonth !== null) {
@@ -37,11 +43,11 @@ export default function ContextWrapper(props) {
     }
   }, [smallCalenderMonth]);
 
-  // useEffect(() => {
-  //   if (!showEventModal) {
-  //     setSelectedEvent(null);
-  //   }
-  // }, [showEventModal]);
+  useEffect(() => {
+    if (!showEventModal) {
+      setSelectedEvent(null);
+    }
+  }, [showEventModal]);
 
   return (
     <GlobalContext.Provider value={{
@@ -57,7 +63,10 @@ export default function ContextWrapper(props) {
       setDaySelected,
       showEventModal,
       setShowEventModal,
-      dispatchCalEvent
+      dispatchCalEvent,
+      savedEvents,
+      selectedEvent,
+      setSelectedEvent
     }}>
       {props.children}
     </GlobalContext.Provider>
