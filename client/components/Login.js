@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { Link, useNavigate } from 'react-router-dom';
-// import ReactOnRails from 'react-on-rails';
 
 const Login = ({ handleSetLogin, setErrors }) => {
-  // const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [errors, setErrors] = useState('');
 
   const handleChange = (event) => {
     const {name, value} = event.target;
@@ -32,8 +28,8 @@ const Login = ({ handleSetLogin, setErrors }) => {
     axios.post('/login', {user}, {withCredentials:true})
       .then(response => {
         if (response.data.logged_in) {
+          setErrors('')
           handleSetLogin(response.data);
-          // navigate('/')
         } else {
           setErrors(response.data.errors)
         }
@@ -47,7 +43,7 @@ const Login = ({ handleSetLogin, setErrors }) => {
       <form onSubmit={handleSubmit}>
         <input placeholder="username" type="text" name="username" value={username} onChange={handleChange} /><br/>
         <input placeholder="password" type="password" name="password" value={password} onChange={handleChange} /><br/>
-        <button type="submit">Log In</button>
+        <button className="mt-1 border rounded" type="submit">Log In</button>
       </form>
     </div>
   );

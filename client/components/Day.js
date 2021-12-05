@@ -5,12 +5,16 @@ import GlobalContext from '../contexts/GlobalContext'
 const Day = ({ day, rowIdx }) => {
   const [dayEvents, setDayEvents] = useState([]);
 
-  const { setDaySelected, setShowEventModal, filteredEvents, setSelectedEvent } = useContext(GlobalContext);
+  const { isLoggedIn, setDaySelected, setShowEventModal, filteredEvents, setSelectedEvent } = useContext(GlobalContext);
 
   const getCurrentDayClass = () => {
     return day.format('DD-MM-YY') === dayjs().format('DD-MM-YY')
       ? 'bg-blue-600 text-white rounded-full w-7'
       : '';
+  };
+
+  const cursorClass = () => {
+    return isLoggedIn ? 'cursor-pointer' : ''
   };
 
   useEffect(() => {
@@ -32,9 +36,11 @@ const Day = ({ day, rowIdx }) => {
           {day.format('DD')}
         </p>
       </header>
-      <div className="flex-1 cursor-pointer" onClick={() => {
-        setDaySelected(day)
-        setShowEventModal(true)
+      <div className={`flex-1 ${cursorClass()}`} onClick={() => {
+        if (isLoggedIn) {
+          setDaySelected(day)
+          setShowEventModal(true)
+        }
       }}>
         {dayEvents.map((evt, idx) => (
           <div

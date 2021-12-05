@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = ({ handleSetLogin, setErrors }) => {
-  // const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  // const [errors, setErrors] = useState('');
 
   const handleChange = (event) => {
     const {name, value} = event.target;
@@ -35,8 +32,8 @@ const Signup = ({ handleSetLogin, setErrors }) => {
     axios.post('/users', {user}, {withCredentials: true})
       .then(response => {
         if (response.data.status === 'created') {
+          setErrors('')
           handleSetLogin(response.data)
-          // navigate('/')
         } else {
           setErrors(response.data.errors)
         }
@@ -51,7 +48,7 @@ const Signup = ({ handleSetLogin, setErrors }) => {
         <input placeholder="username" type="text" name="username" value={username} onChange={handleChange} /><br/>
         <input placeholder="password" type="password" name="password" value={password} onChange={handleChange} /><br/>
         <input placeholder="confirm password" type="password" name="passwordConfirm" value={passwordConfirm} onChange={handleChange} /><br/>
-        <button type="submit">Sign Up</button>
+        <button className="mt-1 border rounded" type="submit">Sign Up</button>
       </form>
     </div>
   );

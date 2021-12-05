@@ -15,7 +15,7 @@ const Labels = () => {
             onChange={() => updateLabel({label: lbl, checked: !checked})}
             className={`h-5 w-5 bg-${lbl}-200 rounded`}
           />
-          <span className={`ml-2 text-gray-700 p-2 bg-${lbl}-200`}>{lbl}</span>
+          <span className={`ml-2 text-gray-700 rounded p-2 bg-${lbl}-200`}>{lbl}</span>
         </label>
       ))}
     </>

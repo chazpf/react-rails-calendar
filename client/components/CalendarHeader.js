@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import GlobalContext from '../contexts/GlobalContext'
 
 const CalendarHeader = () => {
-  const { isLoggedIn, user, monthIndex, setMonthIndex } = useContext(GlobalContext);
+  const { monthIndex, setMonthIndex } = useContext(GlobalContext);
 
   const handleReset = () => {
     setMonthIndex(
