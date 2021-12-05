@@ -1,6 +1,7 @@
 import React from 'react';
 import CreateEventButton from './CreateEventButton';
 import SmallCalendar from './SmallCalendar'
+import Labels from './Labels';
 
 const Sidebar = () => {
 
@@ -9,6 +10,7 @@ const Sidebar = () => {
     <aside>
       <CreateEventButton />
       <SmallCalendar />
+      <Labels />
     </aside>
   );
 };

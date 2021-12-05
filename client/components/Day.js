@@ -5,7 +5,7 @@ import GlobalContext from '../contexts/GlobalContext'
 const Day = ({ day, rowIdx }) => {
   const [dayEvents, setDayEvents] = useState([]);
 
-  const { setDaySelected, setShowEventModal, savedEvents, setSelectedEvent } = useContext(GlobalContext);
+  const { setDaySelected, setShowEventModal, filteredEvents, setSelectedEvent } = useContext(GlobalContext);
 
   const getCurrentDayClass = () => {
     return day.format('DD-MM-YY') === dayjs().format('DD-MM-YY')
@@ -14,11 +14,11 @@ const Day = ({ day, rowIdx }) => {
   };
 
   useEffect(() => {
-    const events = savedEvents.filter(evt => {
+    const events = filteredEvents.filter(evt => {
       return dayjs(evt.day).format('DD-MM-YY') === day.format('DD-MM-YY')
     });
     setDayEvents(events);
-  }, [savedEvents, day]);
+  }, [filteredEvents, day]);
 
   return (
     <div className="border border-gray-200 flex flex-col">
