@@ -81,14 +81,14 @@ const UserAuth = () => {
                 setErrors={setErrors}
                 handleSetLogin={handleSetLogin}
               />
-              <button onClick={toggleShowLogin}>Need an account?</button>
+              <button className="ml-1 border rounded" onClick={toggleShowLogin}>Need an account?</button>
             </> :
             <>
               <Signup
                 setErrors={setErrors}
                 handleSetLogin={handleSetLogin}
               />
-              <button onClick={toggleShowLogin}>Already have an account?</button>
+              <button className="ml-1 border rounded" onClick={toggleShowLogin}>Already have an account?</button>
             </>
           }
         </>
