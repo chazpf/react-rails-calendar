@@ -23,7 +23,7 @@ const CalendarHeader = () => {
   }
 
   return (
-    <header className="px-4 py-2 flex items-center">
+    <header className="px-4 py-2 flex items-center flex-wrap">
       <UserAuth />
       <h1 className="mr-10 text-xl text-gray-500 font-bold">Calendar</h1>
       <button

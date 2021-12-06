@@ -10,7 +10,7 @@ const Sidebar = () => {
 
 
   return (
-    <aside>
+    <aside className="sidebar w-sidebar">
       {isLoggedIn &&
         <CreateEventButton />
       }
