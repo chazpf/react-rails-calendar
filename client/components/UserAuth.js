@@ -65,14 +65,14 @@ const UserAuth = () => {
   }, []);
 
   return (
-    <>
+    <div className="auth mr-10 border border-0 border-b-2 pb-2 border-gray-200">
       {errors &&
-        <div>{errors}</div>
+        <div className="p-2 bg-yellow-500 rounded-lg">{errors}</div>
       }
       {isLoggedIn ?
         <>
-          <p>Hi, {user.username}</p>
-          <button onClick={handleLogout}>Logout</button>
+          <span className='mb-1 mr-2'>{user.username}</span>
+          <button className="mt-1 border rounded" onClick={handleLogout}>Logout</button>
         </> :
         <>
           {showLogin ?
@@ -81,19 +81,19 @@ const UserAuth = () => {
                 setErrors={setErrors}
                 handleSetLogin={handleSetLogin}
               />
-              <button className="ml-1 border rounded" onClick={toggleShowLogin}>Need an account?</button>
+              <button className="px-1 mb-1_2 border rounded" onClick={toggleShowLogin}>Sign up instead?</button>
             </> :
             <>
               <Signup
                 setErrors={setErrors}
                 handleSetLogin={handleSetLogin}
               />
-              <button className="ml-1 border rounded" onClick={toggleShowLogin}>Already have an account?</button>
+              <button className="px-1 border rounded" onClick={toggleShowLogin}>Log in instead?</button>
             </>
           }
         </>
       }
-    </>
+    </div>
   )
 }
 
