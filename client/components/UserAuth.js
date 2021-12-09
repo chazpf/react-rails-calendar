@@ -72,7 +72,7 @@ const UserAuth = () => {
       {isLoggedIn ?
         <>
           <span className='mb-1 mr-2'>{user.username}</span>
-          <button className="mt-1 border rounded" onClick={handleLogout}>Logout</button>
+          <button className="mt-1 px-1 border rounded" onClick={handleLogout}>Logout</button>
         </> :
         <>
           {showLogin ?
