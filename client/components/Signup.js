@@ -43,12 +43,12 @@ const Signup = ({ handleSetLogin, setErrors }) => {
 
   return (
     <div>
-      <h1 className="mr-10 text-xl text-gray-500 font-bold">Sign Up</h1>
+      <h1 className="mr-10 mb-1 text-xl text-gray-500 font-bold">Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <input placeholder="username" type="text" name="username" value={username} onChange={handleChange} /><br/>
         <input placeholder="password" type="password" name="password" value={password} onChange={handleChange} /><br/>
         <input placeholder="confirm password" type="password" name="passwordConfirm" value={passwordConfirm} onChange={handleChange} /><br/>
-        <button className="mt-1 border rounded" type="submit">Sign Up</button>
+        <button className="px-1 mt-1 mb-1 border rounded" type="submit">Sign Up</button>
       </form>
     </div>
   );

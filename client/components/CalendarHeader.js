@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import GlobalContext from '../contexts/GlobalContext'
 
 const CalendarHeader = () => {
-  const { monthIndex, setMonthIndex } = useContext(GlobalContext);
+  const { monthIndex, setMonthIndex, setDaySelected } = useContext(GlobalContext);
 
   const handleReset = () => {
     setMonthIndex(
@@ -12,6 +12,7 @@ const CalendarHeader = () => {
         ? monthIndex + Math.random()
         : dayjs().month()
     );
+    setDaySelected(dayjs());
   };
 
   const handlePrevMonth = () => {
@@ -23,7 +24,7 @@ const CalendarHeader = () => {
   }
 
   return (
-    <header className="px-4 py-2 flex items-center flex-wrap">
+    <header className="px-4 pt-2 pb-0 flex items-center flex-wrap header">
       <UserAuth />
       <h1 className="mr-10 text-xl text-gray-500 font-bold">Calendar</h1>
       <button
